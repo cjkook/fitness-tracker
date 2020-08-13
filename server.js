@@ -60,6 +60,6 @@ app.get("/name", (req,res) => {
 })
 
 // Set the app to listen on port 3000
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log("App running on port 3000!");
 });
