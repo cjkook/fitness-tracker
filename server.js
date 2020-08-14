@@ -1,5 +1,5 @@
 const express = require("express"); // Express web server framework
-const mongojs = require("mongojs");
+const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
 const path = require("path");
@@ -9,9 +9,8 @@ const app = express();
 const PORT = process.env.PORT || 8888;
 
 // * mongo db
-const databaseUrl = "zoo";
-const collections = ["animals"];
-const db = mongojs(databaseUrl, collections);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/populate", { useNewUrlParser: true });
+const db = require("./models");
 
 // * server settings 
 app
@@ -19,11 +18,6 @@ app
 	.use(cors())
 	.use(express.urlencoded({ extended: true }))
 	.use(express.json());
-
-// * db errors
-db.on("error", error => {
-  console.log("Database Error:", error);
-});
 
 // * routes
 app.get("/", (req, res) => {
@@ -59,7 +53,6 @@ app.get("/name", (req,res) => {
   });
 })
 
-// Set the app to listen on port 3000
 app.listen(PORT, () => {
-  console.log("App running on port 3000!");
+  console.log(`App running on port ${PORT}!`);
 });
