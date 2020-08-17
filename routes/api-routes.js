@@ -20,7 +20,6 @@ router.put("/api/workouts/:id", (req, res) => {
   db.Workout.findOneAndUpdate(
     { _id: id },
     { $push: { 
-      day: Date.now(),
       exercises: req.body } },
     { new: true }
   ).then((dbItem) => {
