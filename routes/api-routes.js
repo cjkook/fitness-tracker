@@ -19,7 +19,9 @@ router.put("/api/workouts/:id", (req, res) => {
   console.log(req.body);
   db.Workout.findOneAndUpdate(
     { _id: id },
-    { $push: { exercises: req.body } },
+    { $push: { 
+      day: Date.now(),
+      exercises: req.body } },
     { new: true }
   ).then((dbItem) => {
     res.json(dbItem);
